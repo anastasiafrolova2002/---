@@ -53,24 +53,23 @@ men:- man(X),write(X),nl,fail.
 
 women:- woman(X),write(X),nl,fail.
 
-%children(+X) - выводит всех детей X
+%children(+X) - shows all children of X
 children(X):-parent(X,Y),write(Y),nl,fail.
 
-%mother(+X,+Y) - проверяет, является ли X матерью Y
+% mother(+X,+Y) - checks if X is mother of Y
 mother(X, Y):-parent(X,Y),woman(X).
 
-%mother(+X) - выводит маму X
+%mother(+X) - shows mother of X
 mother(X):-parent(Y,X),woman(Y),write(Y).
 
-%brother(+X,+Y) - проверяет, является ли X братом Y
+% brother(+X,+Y) -checks if X is brother of Y
 brother(X,Y):-parent(P,X),parent(P,Y),man(P),man(X),X\=Y.
 
-%brothers(+X) - выводит всех братьев X
+%brothers(+X) - shows all brothers of X
 brothers(X):-brother(Y,X),write(Y),nl,fail.
 
-% b_s(+X,+Y) - проверяет, являются ли X и Y родными братом и сестрой или
-% братьями или сестрами
+% b_s(+X,+Y) - checks if X and Y are siblings
 b_s(X,Y):-mother(M,X),mother(M,Y),X\=Y.
 
-% b_s(+X)- выводит всех братьев или сестер X
+% b_s(+X)- shows all brothers and sisters of X
 b_s(X):-b_s(X,Y),write(Y),nl,fail.
