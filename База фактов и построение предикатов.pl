@@ -73,3 +73,16 @@ b_s(X,Y):-mother(M,X),mother(M,Y),X\=Y.
 
 % b_s(+X)- shows all brothers and sisters of X
 b_s(X):-b_s(X,Y),write(Y),nl,fail.
+
+%Variant 12.
+% daughter(+X, +Y)- checks if X is daughter of Y
+daughter(X,Y):-parent(Y,X),woman(X).
+
+% daughter(+X) - shows daugter(s) of X
+daughter(X):-parent(X,D),woman(D),write(D),nl,fail.
+
+% husband(+X, +Y)- checks if X is husband of Y
+husband(X,Y):-parent(X,C),parent(Y,C),woman(Y),man(X).
+
+% husband(+X) - shows husband od X
+husband(X):-husband(Y,X),write(Y).
