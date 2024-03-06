@@ -1,8 +1,8 @@
 %LB2
 
-%น1
+%ยน1
 
-%max(+X,+Y,+U,-Z) - puts in U max out of X, Y and Z
+%max3(+X,+Y,+U,-Z) - puts in U max out of X, Y and Z
 max3(X,Y,U,X):-X>Y,X>U,!.
 max3(_,Y,U,Y):-Y>U,!.
 max3(_,_,U,U).
@@ -16,8 +16,5 @@ fact_down(N,Y,N,Y):-!.
 fact_down(I,Y,N,X):-I1 is I+1, Y1 is Y*I1, fact_down(I1,Y1,N,X).
 
 %sum_of_digits(+X,+S) - counts in S sum of digits of N
-sum_dig(N,N) :- N>=0, N<10,!.
-sum_dig(N,K) :- N>=10,V=N div 10, P=N mod 10, sum_dig(V,U), K=P+U.
-
-sum(0, Y):-Y=0, !.
-sum(X, Y):-Z1 is X mod 10, Z2 is X div 10, sum(Z2, Q), Y is Z1+Q.
+sum_of_digits_up(0, Y):-Y=0, !.
+sum_of_digits_up(X, Y):-Z1 is X mod 10, Z2 is X div 10, sum_of_digits_up(Z2, Q), Y is Z1+Q.
