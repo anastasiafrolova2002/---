@@ -18,3 +18,13 @@ fact_down(I,Y,N,X):-I1 is I+1, Y1 is Y*I1, fact_down(I1,Y1,N,X).
 %sum_of_digits(+X,+S) - counts in S sum of digits of N
 sum_of_digits_up(0, Y):-Y=0, !.
 sum_of_digits_up(X, Y):-Z1 is X mod 10, Z2 is X div 10, sum_of_digits_up(Z2, Q), Y is Z1+Q.
+
+% sum_list_up(+List,?Sum) - checks if Sum is sum of all elements of List, or if -Sum => counts the sum and gives it to Sum
+sum_list_up([],0):-!.
+sum_list_up([H|T],Sum):-sum_list_up(T,SumT),Sum is H+SumT.
+
+% sum_list_down(+List,?Sum) - checks if Sum is sum of elements of List, or if -Sum => counts sum and gives it to Sum
+sum_list_down(List,Sum):-sum_list_down(List,0,Sum).
+sum_list_down([],Sum,Sum):-!.
+sum_list_down([H|T],CurSum,Sum):-NewSum is CurSum+H,sum_list_down(T,NewSum,Sum).
+
