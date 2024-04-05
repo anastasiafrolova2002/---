@@ -28,3 +28,18 @@ sum_list_down(List,Sum):-sum_list_down(List,0,Sum).
 sum_list_down([],Sum,Sum):-!.
 sum_list_down([H|T],CurSum,Sum):-NewSum is CurSum+H,sum_list_down(T,NewSum,Sum).
 
+% delete_elements_with_sum(+List,+Elem,-ListForInput)- delete elements
+% where sum_of_digits_up equals Elem
+delete_elements_with_sum([],_,[]):-!.
+
+delete_elements_with_sum([H|T],Elem,NewList) :-
+    sum_of_digits_up(H, Sum),
+    Sum =\= Elem,
+    delete_elements_with_sum(T,Elem,NewList1),
+    NewList = [H|NewList1].
+
+delete_elements_with_sum([H|T], Elem, NewList) :-
+    sum_of_digits_up(H, Sum),
+    Sum =:= Elem,
+    delete_elements_with_sum(T, Elem, NewList),!.
+
