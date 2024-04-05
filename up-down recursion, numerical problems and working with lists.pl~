@@ -1,6 +1,6 @@
 %LB2
 
-%¹1
+% Exercise 1
 
 %max3(+X,+Y,+U,-Z) - puts in U max out of X, Y and Z
 max3(X,Y,U,X):-X>Y,X>U,!.
@@ -43,3 +43,23 @@ delete_elements_with_sum([H|T], Elem, NewList) :-
     Sum =:= Elem,
     delete_elements_with_sum(T, Elem, NewList),!.
 
+% Exercise 2 - Var 12
+
+%min_digit(+Elem,-Min)- finds min from digits of Elem.
+min_digit(Elem,Min):- Elem< 10,Min is Elem,!.
+
+min_digit(Elem, Min) :-
+    NextDigit is Elem mod 10,
+    NextElem is Elem // 10,
+    min_digit(NextElem, NextMin),
+    (NextDigit < NextMin -> Min = NextDigit ; Min = NextMin).
+
+% kolv_of_less_than_3(+Elem,-Kolv)- finds amount of digits that are less
+% than 3
+kolv_of_less_than_3(0,0).
+
+kolv_of_less_than_3(Elem, Kolv) :-
+    NextDigit is Elem mod 10,
+    NextElem is Elem // 10,
+    kolv_of_less_than_3(NextElem, NextKolv),
+    (NextDigit < 3 -> Kolv is NextKolv+1;Kolv is NextKolv).
