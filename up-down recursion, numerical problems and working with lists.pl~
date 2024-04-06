@@ -19,6 +19,15 @@ fact_down(I,Y,N,X):-I1 is I+1, Y1 is Y*I1, fact_down(I1,Y1,N,X).
 sum_of_digits_up(0, Y):-Y=0, !.
 sum_of_digits_up(X, Y):-Z1 is X mod 10, Z2 is X div 10, sum_of_digits_up(Z2, Q), Y is Z1+Q.
 
+% read_list(-List, +N) - read N elements and input them in List
+read_list(List,N):-read_list(List,N,0,[]).
+read_list(List,N,N,List):-!.
+read_list(List,N,K,NewList):-read(X), append(NewList,[X],AppendListResult),K_next is K+1, read_list(List,N,K_next,AppendListResult).
+
+% write_list(+List) - print elements of List
+write_list([]):-!.
+write_list([H|T]):-write(H),write(" "), write_list(T).
+
 % sum_list_up(+List,?Sum) - checks if Sum is sum of all elements of List, or if -Sum => counts the sum and gives it to Sum
 sum_list_up([],0):-!.
 sum_list_up([H|T],Sum):-sum_list_up(T,SumT),Sum is H+SumT.
