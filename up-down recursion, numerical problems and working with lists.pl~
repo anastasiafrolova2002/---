@@ -72,3 +72,77 @@ kolv_of_less_than_3(Elem, Kolv) :-
     NextElem is Elem // 10,
     kolv_of_less_than_3(NextElem, NextKolv),
     (NextDigit < 3 -> Kolv is NextKolv+1;Kolv is NextKolv).
+
+
+% Exercise 3 - Var 12 - 12, 13, 36
+
+% Exercise 1.12 - найти макс и мин массива, а
+% числа между ними записать в обратном порядке в новый
+% массив
+
+% min_element(+List,-Min) - finds min in List
+
+min_element([Min], Min).
+min_element([H|T], Min) :-
+    min_element(T, Min1),
+    Min is min(H, Min1).
+
+% max_element(+List,-Max) - finds max in List
+max_element([Max], Max).
+max_element([H|T], Max) :-
+    max_element(T, Max1),
+    Max is max(H, Max1).
+
+% reverse_between_min_max(?Min, ?Max, +InputList, -Result) - change places of elements between max and min
+reverse_between_min_max(_, _, [], []).
+reverse_between_min_max(Min, Max, [H|T], Result) :-
+    H > Min, H < Max,
+    reverse_between_min_max(Min, Max, T, R1),
+    append(R1, [H], Result).
+reverse_between_min_max(Min, Max, [H|T], Result) :-
+    ( H =< Min ; H >= Max ),
+    reverse_between_min_max(Min, Max, T, Result).
+
+% reverse_array_between_min_max(+List, -Result) - min_element + max_element + reverse_between_min_max
+reverse_array_between_min_max(InputList, Result) :-
+    min_element(InputList, Min),
+    max_element(InputList, Max),
+    reverse_between_min_max(Min, Max, InputList, Result),!.
+
+
+% Exercise 1.13 - разместить элементы, расположенные до мин, в конце массива
+
+%move_elements_after_min(+List, ?Min, -Res) - puts elements before MIN after MIN
+move_elements_after_min([], _, []).
+move_elements_after_min([Min|T], Min, Result) :-
+    move_elements_after_min(T, Min, Result).
+move_elements_after_min([H|T], Min, Result) :-
+    H \= Min,
+    move_elements_after_min(T, Min, R1),
+    append([H], R1, Result).
+
+% move_elements_to_end_after_min(+List, -Res) - min_element + move_elements_after_min
+move_elements_to_end_after_min(InputList, Result2) :-
+    min_element(InputList, Min),
+    move_elements_after_min(InputList, Min, Result),
+    append([Min],Result,Result2),
+    !.
+
+
+% Exercise 1.36 Дан целочисленный массив. Необходимо найти максимальный нечетный элемент.
+
+%odd_elem(+Elem) - checks if Elem is odd
+odd_elem(Elem):-Elem mod 2 =:=1.
+
+% max_odd_element(+List,-Max) - find max odd elem of List, if none -> NotFound
+max_odd_element([H|T], Max) :- odd_elem(H),
+    max_odd_element(T, H, Max),!; max_odd_element(T, "NotFound", Max),!.
+
+max_odd_element([], Max, Max).
+max_odd_element([H|T], CurrMax, Max) :-
+    odd_elem(H),
+    H > CurrMax,
+    max_odd_element(T, H, Max).
+max_odd_element([H|T], CurrMax, Max) :-
+    (not(odd_elem(H)) ; H =< CurrMax),
+    max_odd_element(T, CurrMax, Max).
