@@ -80,4 +80,47 @@ class MainTest {
         val expected = 4
         assertEquals(expected, main.kolvDel(6))
     }
+
+    @org.junit.jupiter.api.Test
+    fun minDigUp() {
+        val main = Main()
+        val expected = 2
+        assertEquals(expected, main.minDigit(998765325))
+    }
+
+    @org.junit.jupiter.api.Test
+    fun kolvLessThreeUp() {
+        val main = Main()
+        val expected = 2
+        assertEquals(expected, main.kolvLessThreeUp(123))
+    }
+
+    @org.junit.jupiter.api.Test
+    fun kolvDelUp() {
+        val main = Main()
+        val expected = 4
+        assertEquals(expected, main.kolvDelUp(6))
+    }
+
+    @org.junit.jupiter.api.Test
+    fun minDigitDown() {
+        val main = Main()
+        val expected = 2
+        assertEquals(expected, main.minDigitDown(982))
+    }
+
+    @org.junit.jupiter.api.Test
+    fun kolvLessThreeUpDown() {
+        val main = Main()
+        val expected = 2
+        assertEquals(expected, main.kolvLessThreeUpDown(333312))
+    }
+
+    @org.junit.jupiter.api.Test
+    fun kolvDelDown() {
+        val main = Main()
+        val expected = 4
+        assertEquals(expected, main.kolvDelDown(6))
+    }
+
 }
