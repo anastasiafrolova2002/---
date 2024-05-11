@@ -63,6 +63,19 @@ class Main {
 
     fun kolvDelDown(number: Int): Int = kolvDelD(number)
 
+    //номер 4
+    fun operateOnDigits(number: Int, operation: (Int) -> Int): Int {
+        fun performOperation(num: Int, func: (Int) -> Int): Int = when {
+            num == 0 -> 0
+            else -> func(num % 10) + performOperation(num / 10, func)
+        }
+        return performOperation(number, operation)
+    }
+
+    fun kolvLessThreeSupreme(number: Int): Int {
+        return operateOnDigits(number) { digit -> if (digit < 3) 1 else 0 }
+    }
+    
     fun main() {
         println("Hello World!")
         val scanner = Scanner(`in`)
@@ -78,6 +91,9 @@ class Main {
         println(minDigitDown(4321))
         println(kolvLessThreeUpDown(1212444444))
         println(kolvDelDown(6))
+        val number = 456123
+        val count = kolvLessThreeSupreme(number)
+        println("Количество цифр числа $number, меньших 3, равно $count.")
     }
 }
 
